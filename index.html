@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Luca Colosimo | Creative Editor</title> <link rel="preconnect" href="https://fonts.googleapis.com">
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Luca Colosimo | Creative Editor</title> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
     <style>
         /* =============================================
-           CONFIGURAZIONE DESIGN SYSTEM (MODIFICA QUI)
+           CONFIGURAZIONE DESIGN SYSTEM
            ============================================= */
         :root {
-            --bg-gradient: linear-gradient(135deg, #ffffff 0%, #d0efed 100%); /* Sfondo gradiente bianco/verdeacqua */
-            --text-main: #1d1d1f;      /* Nero tipico Apple */
-            --text-muted: #86868b;     /* Grigio per testi secondari */
-            --accent-color: #0071e3;   /* Blu per link/bottoni */
-            --glass-bg: rgba(255, 255, 255, 0.7); /* Effetto vetro per i box */
-            --border-radius: 24px;     /* Arrotondamento stile Apple */
-            --font-main: 'Inter', sans-serif; /* Font principale */
-            --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); /* Animazione fluida */
+            --bg-gradient: linear-gradient(135deg, #ffffff 0%, #d0efed 100%); 
+            --text-main: #1d1d1f;      
+            --text-muted: #86868b;     
+            --accent-color: #0071e3;   
+            --glass-bg: rgba(255, 255, 255, 0.7); 
+            --border-radius: 24px;     
+            --font-main: 'Inter', sans-serif; 
+            --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); 
         }
 
         /* RESET GENERALE */
@@ -26,203 +29,87 @@
         body {
             font-family: var(--font-main);
             background: var(--bg-gradient);
-            background-attachment: fixed; /* Mantiene il gradiente fisso mentre scrolli */
+            background-attachment: fixed; 
             color: var(--text-main);
             line-height: 1.5;
             overflow-x: hidden;
         }
 
-        /* UTILITY PER ANIMAZIONE REVEAL */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: var(--transition);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        /* ANIMAZIONE REVEAL */
+        .reveal { opacity: 0; transform: translateY(30px); transition: var(--transition); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* =============================================
-           1. HEADER (FISSA E CENTRATA)
-           ============================================= */
-        /* HEADER SECTION START */
+        /* HEADER */
         header {
-            position: fixed; /* La rende fissa in alto */
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%); /* Centra l'header perfettamente */
-            z-index: 1000;
-            width: 90%;
-            max-width: 600px; /* Larghezza massima del box header */
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%); 
+            z-index: 1000; width: 90%; max-width: 600px; 
         }
 
         .nav-box {
-            background: var(--glass-bg); /* Sfondo semi-trasparente */
-            backdrop-filter: blur(20px); /* Effetto sfocatura dietro l'header */
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50px; /* Bordi molto tondi per l'header */
-            padding: 10px 20px;
-            display: flex;
-            justify-content: center; /* Centra i bottoni all'interno */
-            gap: 15px; /* Spazio tra i pulsanti */
+            background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 50px; 
+            padding: 10px 20px; display: flex; justify-content: center; gap: 15px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
-        .nav-box a {
-            text-decoration: none;
-            color: var(--text-main);
-            font-size: 14px;
-            font-weight: 500;
-            padding: 8px 15px;
-            border-radius: 20px;
-            transition: var(--transition);
-        }
+        .nav-box a { text-decoration: none; color: var(--text-main); font-size: 14px; font-weight: 500; padding: 8px 15px; border-radius: 20px; transition: var(--transition); }
+        .nav-box a:hover { background: rgba(0,0,0,0.05); }
 
-        .nav-box a:hover {
-            background: rgba(0,0,0,0.05); /* Effetto hover grigio chiaro */
-        }
-        /* HEADER SECTION END */
+        /* SEZIONI */
+        section { padding: 120px 5% 60px; max-width: 1100px; margin: 0 auto; min-height: 80vh; }
 
-        /* =============================================
-           SEZIONI GENERALI
-           ============================================= */
-        section {
-            padding: 120px 5% 60px; /* Spaziatura tra le sezioni */
-            max-width: 1100px;
-            margin: 0 auto;
-            min-height: 80vh;
-        }
-
-        /* =============================================
-           2. CHI SONO
-           ============================================= */
-        /* CHI SONO START */
-        .about-title {
-            font-size: clamp(3rem, 8vw, 5rem); /* Testo che si ridimensiona con lo schermo */
-            font-weight: 800;
-            text-align: center;
-            margin-bottom: 50px;
-            letter-spacing: -2px;
-        }
-
-        .about-box {
-            background: var(--glass-bg);
-            border-radius: var(--border-radius); /* Bordo stile Apple */
-            padding: 40px;
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* Due colonne: immagine e testo */
-            gap: 40px;
-            align-items: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.03);
-        }
-
-        .about-image {
-            width: 100%;
-            aspect-ratio: 1/1; /* Mantiene l'immagine quadrata */
-            background: #eee; /* Placeholder se l'immagine manca */
-            border-radius: calc(var(--border-radius) - 10px);
-            object-fit: cover; /* Adatta l'immagine al box senza distorcerla */
-        }
-
+        /* CHI SONO */
+        .about-title { font-size: clamp(3rem, 8vw, 5rem); font-weight: 800; text-align: center; margin-bottom: 50px; letter-spacing: -2px; }
+        .about-box { background: var(--glass-bg); border-radius: var(--border-radius); padding: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; box-shadow: 0 20px 40px rgba(0,0,0,0.03); margin-bottom: 30px; }
+        .about-image { width: 100%; aspect-ratio: 1/1; background: #eee; border-radius: calc(var(--border-radius) - 10px); object-fit: cover; }
         .about-content h2 { margin-bottom: 20px; font-size: 28px; }
         .about-content p { color: var(--text-muted); font-size: 18px; }
-        /* CHI SONO END */
 
-        /* =============================================
-           3. WORK / PROGETTI
-           ============================================= */
-        /* WORK SECTION START */
+        /* NUOVA GRIGLIA SERVIZI */
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; width: 100%; }
+        .service-card { background: var(--glass-bg); padding: 30px; border-radius: var(--border-radius); box-shadow: 0 10px 30px rgba(0,0,0,0.02); transition: var(--transition); border: 1px solid rgba(255,255,255,0.5); }
+        .service-card:hover { transform: translateY(-10px); background: white; }
+        .service-card h3 { margin-bottom: 15px; font-size: 22px; color: var(--accent-color); }
+
+        /* SEZIONE BANNER LOGHI (MARQUEE) */
+        .partners-section { padding: 80px 0; overflow: hidden; background: rgba(255,255,255,0.3); margin: 60px 0; }
+        .partners-title { text-align: center; margin-bottom: 40px; font-size: 18px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; }
+        .marquee { display: flex; width: 200%; animation: scroll 20s linear infinite; }
+        .marquee img { height: 60px; margin: 0 40px; filter: grayscale(100%); opacity: 0.6; transition: 0.3s; }
+        .marquee img:hover { filter: grayscale(0%); opacity: 1; }
+        
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* LAVORI */
         .work-title { font-size: 32px; margin-bottom: 40px; font-weight: 600; }
-
-        .project-item {
-            display: grid;
-            grid-template-columns: auto 1fr auto; /* Anno, Titolo, Categoria */
-            padding: 30px 10px;
-            border-bottom: 1px solid rgba(0,0,0,0.1); /* Linea sottile divisoria */
-            text-decoration: none;
-            color: inherit;
-            align-items: baseline;
-            gap: 20px;
-            transition: var(--transition);
-        }
-
-        .project-item:hover {
-            padding-left: 20px; /* Effetto movimento verso destra */
-            background: rgba(255, 255, 255, 0.4);
-        }
-
+        .project-item { display: grid; grid-template-columns: auto 1fr auto; padding: 30px 10px; border-bottom: 1px solid rgba(0,0,0,0.1); text-decoration: none; color: inherit; align-items: baseline; gap: 20px; transition: var(--transition); }
+        .project-item:hover { padding-left: 20px; background: rgba(255, 255, 255, 0.4); }
         .p-year { font-size: 14px; color: var(--text-muted); width: 50px; }
         .p-name { font-size: 24px; font-weight: 600; }
         .p-cat { font-size: 14px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
-        /* WORK SECTION END */
 
-        /* =============================================
-           CHATBOT POPUP CONTATTI (In basso a destra)
-           ============================================= */
-        .contact-trigger {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--text-main);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 50px;
-            cursor: pointer;
-            z-index: 2000;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            font-weight: 600;
-        }
-
-        .contact-popup {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            width: 300px;
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-            display: none; /* Nascosto di base */
-            z-index: 2000;
-            transform-origin: bottom right;
-            animation: popupIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
+        /* CONTATTI & POPUP */
+        .contact-trigger { position: fixed; bottom: 30px; right: 30px; background: var(--text-main); color: white; padding: 15px 25px; border-radius: 50px; cursor: pointer; z-index: 2000; box-shadow: 0 10px 20px rgba(0,0,0,0.2); font-weight: 600; }
+        .contact-popup { position: fixed; bottom: 100px; right: 30px; width: 300px; background: white; border-radius: var(--border-radius); padding: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.15); display: none; z-index: 2000; transform-origin: bottom right; animation: popupIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
         @keyframes popupIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
-
         .contact-popup h4 { margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .contact-link {
-            display: block;
-            padding: 10px 0;
-            text-decoration: none;
-            color: var(--text-main);
-            border-bottom: 1px solid #f9f9f9;
-            transition: 0.3s;
-        }
+        .contact-link { display: block; padding: 10px 0; text-decoration: none; color: var(--text-main); border-bottom: 1px solid #f9f9f9; transition: 0.3s; }
         .contact-link:hover { color: var(--accent-color); padding-left: 5px; }
 
-        /* =============================================
-           5. FOOTER
-           ============================================= */
-        footer {
-            text-align: center;
-            padding: 60px 0;
-            color: var(--text-muted);
-            font-size: 14px;
-        }
+        footer { text-align: center; padding: 60px 0; color: var(--text-muted); font-size: 14px; }
 
-        /* =============================================
-           RESPONSIVE (MOBILE FRIENDLY)
-           ============================================= */
+        /* MOBILE FRIENDLY */
         @media (max-width: 768px) {
-            .about-box { grid-template-columns: 1fr; } /* Su mobile il box Chi Sono diventa verticale */
+            .about-box { grid-template-columns: 1fr; } 
             .nav-box { width: 100%; padding: 5px; gap: 5px; }
             .nav-box a { font-size: 12px; padding: 8px 10px; }
             .project-item { grid-template-columns: 1fr; gap: 5px; padding: 20px 0; }
             .p-cat { text-align: left; }
             .about-title { font-size: 3rem; }
+            .services-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -230,49 +117,69 @@
 
     <header>
         <nav class="nav-box">
-            <a href="#chi-sono">Chi sono</a> <a href="#servizi">Servizi</a>
+            <a href="#chi-sono">Chi sono</a> 
+            <a href="#servizi">Servizi</a>
             <a href="#lavori">Lavori</a>
             <a href="https://beacons.ai/lucacolosimo" target="_blank" style="color: var(--accent-color); font-weight: bold;">Toolbox</a>
         </nav>
     </header>
+
     <main>
         <section id="chi-sono">
-            <h1 class="about-title reveal">Creativo Digitale.</h1> <div class="about-box reveal">
+            <h1 class="about-title reveal">Creativo Digitale.</h1> 
+            <div class="about-box reveal">
                 <img src="foto profilo.jpeg" alt="La mia foto" class="about-image">
-                
                 <div class="about-content">
-                    <h2>Ciao, sono Luca</h2> <p>Appassionato di design ed innovazione, aiuto le persone a costruire la propria presenza online con un tocco di eleganza e funzionalità.</p>
+                    <h2>Ciao, sono Luca</h2> 
+                    <p>Appassionato di design ed innovazione, aiuto le persone a costruire la propria presenza online con un tocco di eleganza e funzionalità.</p>
                 </div>
             </div>
         </section>
 
         <section id="servizi">
-            <h2 class="work-title reveal">Cosa faccio</h2>
-            <div class="about-box reveal" style="grid-template-columns: 1fr;">
-                <p>Offro consulenze creative, sviluppo web e strategie di personal branding.</p>
+            <h2 class="work-title reveal">I miei servizi</h2>
+            <div class="services-grid">
+                <div class="service-card reveal">
+                    <h3>Branding & Strategy</h3>
+                    <p>Offro consulenze creative, sviluppo web e strategie di personal branding per far risaltare la tua identità.</p>
+                </div>
+                <div class="service-card reveal">
+                    <h3>Video Editing</h3>
+                    <p>Offro servizio di videoediting professionale per YouTube, Instagram Reels e TikTok, curando ritmo e storytelling.</p>
+                </div>
+                <div class="service-card reveal">
+                    <h3>YouTube Design</h3>
+                    <p>Offro servizio di creazione miniature ad alto CTR per catturare l'attenzione e aumentare le visualizzazioni del tuo canale.</p>
+                </div>
             </div>
         </section>
 
+        <div class="partners-section">
+            <p class="partners-title">Hanno scelto di lavorare con me</p>
+            <div class="marquee">
+                <img src="https://via.placeholder.com/150x60?text=LOGO+1" alt="Partner 1">
+                <img src="https://via.placeholder.com/150x60?text=LOGO+2" alt="Partner 2">
+                <img src="https://via.placeholder.com/150x60?text=LOGO+3" alt="Partner 3">
+                <img src="https://via.placeholder.com/150x60?text=LOGO+4" alt="Partner 4">
+                <img src="https://via.placeholder.com/150x60?text=LOGO+5" alt="Partner 5">
+                <img src="https://via.placeholder.com/150x60?text=LOGO+1" alt="Partner 1">
+                <img src="https://via.placeholder.com/150x60?text=LOGO+2" alt="Partner 2">
+                <img src="https://via.placeholder.com/150x60?text=LOGO+3" alt="Partner 3">
+                <img src="https://via.placeholder.com/150x60?text=LOGO+4" alt="Partner 4">
+                <img src="https://via.placeholder.com/150x60?text=LOGO+5" alt="Partner 5">
+            </div>
+        </div>
+
         <section id="lavori">
-            <h2 class="work-title reveal">Tutti i miei lavori</h2>
-            
+            <h2 class="work-title reveal">I miei lavori</h2>
             <div class="project-list">
                 <a href="#" class="project-item reveal">
                     <span class="project-year">2024</span> <span class="p-name">Redesign Brand Luxury</span> <span class="p-cat">Web Design</span> </a>
-
                 <a href="#" class="project-item reveal">
-                    <span class="project-year">2023</span>
-                    <span class="p-name">App Mobile Fitness</span>
-                    <span class="p-cat">UI/UX Design</span>
-                </a>
-
+                    <span class="project-year">2023</span> <span class="p-name">App Mobile Fitness</span> <span class="p-cat">UI/UX Design</span> </a>
                 <a href="#" class="project-item reveal">
-                    <span class="project-year">2023</span>
-                    <span class="p-name">Campagna Social XYZ</span>
-                    <span class="p-cat">Marketing</span>
-                </a>
-                
-                </div>
+                    <span class="project-year">2023</span> <span class="p-name">Campagna Social XYZ</span> <span class="p-cat">Marketing</span> </a>
+            </div>
         </section>
     </main>
 
@@ -291,16 +198,13 @@
     </footer>
 
     <script>
-        /* FUNZIONE PER ANIMAZIONI ALLO SCROLL (INTERSECTION OBSERVER) */
+        /* ANIMAZIONI ALLO SCROLL */
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active'); // Aggiunge la classe per animare quando visibile
-                }
+                if (entry.isIntersecting) { entry.target.classList.add('active'); }
             });
         }, { threshold: 0.1 });
 
-        // Applica l'osservatore a tutti gli elementi con classe .reveal
         document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
         /* GESTIONE POPUP CONTATTI */
@@ -308,28 +212,18 @@
         const popup = document.getElementById('contactPopup');
 
         trigger.addEventListener('click', () => {
-            // Se il popup è chiuso lo apre, se è aperto lo chiude
-            if (popup.style.display === 'block') {
-                popup.style.display = 'none';
-            } else {
-                popup.style.display = 'block';
-            }
+            popup.style.display = (popup.style.display === 'block') ? 'none' : 'block';
         });
 
-        // Chiude il popup se si clicca fuori
         window.addEventListener('click', (e) => {
-            if (!trigger.contains(e.target) && !popup.contains(e.target)) {
-                popup.style.display = 'none';
-            }
+            if (!trigger.contains(e.target) && !popup.contains(e.target)) { popup.style.display = 'none'; }
         });
 
-        /* SCROLL FLUIDO PER I BOTTONI HEADER */
+        /* SCROLL FLUIDO */
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e.preventDefault(); // Impedisce il salto immediato
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth' // Rende lo scroll fluido
-                });
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
             });
         });
     </script>
