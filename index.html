@@ -3,108 +3,307 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apex Replica | Minimal Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Luca Colosimo | Creative Editor</title>
+    <style>
+        /* SFONDO BLOCCATO E SFOCATO */
+.background-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* QUI INSERISCI IL LINK DELLA TUA IMMAGINE */
+    background-image: url('sfondo.jpg'); 
+    background-size: cover;
+    background-position: center;
+    z-index: -2; /* Rimane dietro a tutto */
+}
+
+/* STRATO CHE SFOCA AL PASSAGGIO (OVERLAY) */
+.background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* Scurisce un po' l'immagine */
+    backdrop-filter: blur(0px); /* Parte nitido */
+    z-index: -1;
+    transition: backdrop-filter 0.5s ease;
+}
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-timeline: --page-scroll block;
+    }
+    
+    .background-overlay {
+        animation: blur-animation linear both;
+        animation-timeline: --page-scroll;
+        animation-range: 0% 20%; /* Si sfoca completamente dopo il 20% dello scroll */
+    }
+
+    @keyframes blur-animation {
+        from { backdrop-filter: blur(0px); background: rgba(0,0,0,0.2); }
+        to { backdrop-filter: blur(15px); background: rgba(0,0,0,0.7); }
+    }
+}
+        /* DESIGN SYSTEM ISPIRATO AD APEX / FRAMER */
+        :root {
+            --bg: #000000;
+            --card-bg: #0a0a0a;
+            --border: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-secondary: #a1a1a6;
+            --accent: #ffffff; /* Bianco puro per un look minimal */
+            --accent-blue: #0071e3;
+        }
+
+        * { box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+    <div class="background-fixed"></div>
+    <div class="background-overlay"></div>
+
+    <header>
+            font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* HEADER BLOCCATA */
+        header {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 800px;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 25px;
+        }
+
+        .nav-links { display: flex; gap: 20px; }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        nav a:hover { color: var(--text-main); }
+
+        .btn-editing {
+            background: var(--text-main);
+            color: var(--bg) !important;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        /* SEZIONI */
+        section {
+            padding: 140px 20px 80px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            letter-spacing: -1px;
+            text-align: center;
+        }
+
+        /* CHI SONO */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 40px;
+            align-items: center;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 32px;
+            border: 1px solid var(--border);
+        }
+
+        .about-text { font-size: 18px; color: var(--text-secondary); line-height: 1.6; }
+        .placeholder-img {
+            width: 100%;
+            border-radius: 20px;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border: 1px solid var(--border);
+        }
+
+        /* SERVIZI */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 35px;
+            border-radius: 28px;
+            border: 1px solid var(--border);
+            transition: 0.3s;
+        }
+
+        .card:hover { border-color: rgba(255,255,255,0.3); transform: translateY(-5px); }
+        .card h3 { margin: 15px 0 10px; font-size: 22px; }
+        .card p { color: var(--text-secondary); font-size: 15px; }
+
+        /* PORTFOLIO */
+        .portfolio-card {
+            background: var(--card-bg);
+            border-radius: 28px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+        }
+
+        .portfolio-card:hover { transform: scale(1.02); }
+        .thumb-container { position: relative; width: 100%; height: 200px; overflow: hidden; }
+        .portfolio-info { padding: 20px; text-align: center; }
+
+        /* CONTATTI */
+        .contact-card {
+            text-align: center;
+            background: linear-gradient(180deg, #0a0a0a 0%, #000 100%);
+            padding: 80px 40px;
+            border-radius: 40px;
+            border: 1px solid var(--border);
+        }
+
+        .email-btn {
+            font-size: 28px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 700;
+            display: block;
+            margin: 20px 0;
+        }
+
+        .social-row { display: flex; justify-content: center; gap: 30px; margin-top: 40px; }
+        .social-row a { color: var(--text-secondary); text-decoration: none; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; }
+        .social-row a:hover { color: var(--accent-blue); }
+
+        footer { padding: 60px; text-align: center; color: #333; font-size: 12px; letter-spacing: 1px; }
+
+        @media (max-width: 768px) {
+            .about-grid { grid-template-columns: 1fr; text-align: center; }
+            h2 { font-size: 32px; }
+            nav .nav-links { display: none; } /* Su mobile nascondiamo i link centrali per semplicità */
+        }
+    </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="nav-content">
-            <div class="logo">APEX.</div>
+    <header>
+        <nav>
+            <div style="font-weight: 800; font-size: 18px; letter-spacing: -1px;">LC</div>
             <div class="nav-links">
-                <a href="#works">Works</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
+                <a href="#chi-sono">Chi sono</a>
+                <a href="#servizi">Servizi</a>
+                <a href="#portfolio">Portfolio</a>
+                <a href="#contatti">Contatti</a>
+            </div>
+            <a href="https://beacons.ai/iltuonome" target="_blank" class="btn-editing">Editing</a>
+        </nav>
+    </header>
+
+    <section id="chi-sono">
+        <h2>About.</h2>
+        <div class="about-grid">
+            <div class="about-text">
+                Mi chiamo <strong>Luca Colosimo</strong>. Aiuto i creator a trasformare le loro idee in video virali. 
+                Utilizzo un approccio strategico al montaggio, focalizzato sulla retention e sull'impatto visivo. 
+                Non è solo editing, è narrazione digitale.
+            </div>
+            <img src="https://via.placeholder.com/400x400/1a1a1a/ffffff?text=FOTO+LUCA" alt="Luca Colosimo" class="placeholder-img">
+        </div>
+    </section>
+
+    <section id="servizi">
+        <h2>Services.</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://via.placeholder.com/50/1a1a1a/ffffff?text=🎬" alt="icon" style="border-radius: 10px;">
+                <h3>Video Editing</h3>
+                <p>Montaggio ad alto ritmo per YouTube, Reels e TikTok.</p>
+            </div>
+            <div class="card">
+                <img src="https://via.placeholder.com/50/1a1a1a/ffffff?text=🖼️" alt="icon" style="border-radius: 10px;">
+                <h3>Miniature YT</h3>
+                <p>Design di thumbnail ottimizzate per il Click-Through Rate.</p>
+            </div>
+            <div class="card">
+                <img src="https://via.placeholder.com/50/1a1a1a/ffffff?text=📱" alt="icon" style="border-radius: 10px;">
+                <h3>Social Manager</h3>
+                <p>Gestione e crescita organica della tua presenza online.</p>
             </div>
         </div>
-    </nav>
-    <main>
-        <section class="hero reveal">
-            <div class="container">
-                <p class="hero-label">Senior Frontend Developer</p>
-                <h1 class="hero-title">Crafting digital <br>experiences with <span>precision</span>.</h1>
-                <div class="hero-footer">
-                    <p class="hero-sub">Specializzato in UI/UX minimalista e sviluppo performante.</p>
-                    <div class="scroll-indicator">Scroll down</div>
-                </div>
-            </div>
-        </section>
-        <section id="about" class="about reveal">
-            <div class="container">
-                <div class="grid-layout">
-                    <div class="grid-label">Intro</div>
-                    <div class="grid-content">
-                        <h2 class="large-text">
-                            Credo nella semplicità come massima forma di sofisticazione. Ogni pixel ha uno scopo, ogni animazione un significato.
-                        </h2>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section id="works" class="works reveal">
-            <div class="container">
-                <div class="section-header">
-                    <span>Selected Works</span>
-                    <span>(2023 — 2026)</span>
-                </div>
+    </section>
 
-                <div class="project-list">
-                    <div class="project-item">
-                        <div class="project-info">
-                            <span class="p-year">2024</span>
-                            <h3 class="p-title">Lumina Dashboard</h3>
-                            <span class="p-category">Product Design</span>
-                        </div>
-                        <div class="project-image-wrapper">
-                            <div class="project-placeholder"></div> 
-                        </div>
-                    </div>
+    <section id="portfolio">
+        <h2>Portfolio.</h2>
+        <div class="grid">
+            <a href="URL_PLAYLIST_1" target="_blank" class="portfolio-card">
+                <div class="thumb-container">
+                    <img src="https://via.placeholder.com/600x400/1a1a1a/ffffff?text=CREATOR+1" class="placeholder-img" style="border:none;">
+                </div>
+                <div class="portfolio-info">
+                    <h3>Nome Creator 1</h3>
+                    <p>Playlist Progetti ↗</p>
+                </div>
+            </a>
+            <a href="URL_PLAYLIST_2" target="_blank" class="portfolio-card">
+                <div class="thumb-container">
+                    <img src="https://via.placeholder.com/600x400/1a1a1a/ffffff?text=CREATOR+2" class="placeholder-img" style="border:none;">
+                </div>
+                <div class="portfolio-info">
+                    <h3>Nome Creator 2</h3>
+                    <p>Playlist Progetti ↗</p>
+                </div>
+            </a>
+        </div>
+    </section>
 
-                    <div class="project-item">
-                        <div class="project-info">
-                            <span class="p-year">2023</span>
-                            <h3 class="p-title">Kinetica Brand</h3>
-                            <span class="p-category">Visual Identity</span>
-                        </div>
-                        <div class="project-image-wrapper">
-                            <div class="project-placeholder"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="case-study reveal">
-            <div class="container split-layout">
-                <div class="split-text">
-                    <span class="label">Featured Case Study</span>
-                    <h2>Studio Architettura "Oltre"</h2>
-                    <p>Un approccio modulare per un'agenzia che ridefinisce lo spazio urbano. Focus sulla gerarchia tipografica e l'uso dello spazio negativo.</p>
-                    <a href="#" class="btn-link">Vedi il progetto →</a>
-                </div>
-                <div class="split-visual">
-                    <div class="project-placeholder tall"></div>
-                </div>
-            </div>
-        </section>
-        </main>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-top">
-                <h2 class="footer-cta">Lavoriamo insieme?</h2>
-                <a href="mailto:hello@example.com" class="footer-email">hello@apex.studio</a>
-            </div>
-            <div class="footer-bottom">
-                <p>© 2026 Apex Template. All rights reserved.</p>
-                <div class="social-links">
-                    <a href="#">LinkedIn</a>
-                    <a href="#">Twitter</a>
-                    <a href="#">Dribbble</a>
-                </div>
+    <section id="contatti">
+        <div class="contact-card">
+            <h2>Let's build together.</h2>
+            <p style="color: var(--text-secondary);">Per collaborazioni o consulenze, scrivimi a:</p>
+            <a href="mailto:lucacolosimo37@gmail.com" class="email-btn">lucacolosimo37@gmail.com</a>
+            
+            <div class="social-row">
+                <a href="LINK_INSTAGRAM" target="_blank">Instagram</a>
+                <a href="LINK_LINKEDIN" target="_blank">LinkedIn</a>
+                <a href="LINK_TIKTOK" target="_blank">TikTok</a>
             </div>
         </div>
+    </section>
+
+    <footer>
+        DESIGNED BY LUCA COLOSIMO &copy; 2026
     </footer>
-    <script src="script.js"></script>
+
 </body>
 </html>
