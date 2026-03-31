@@ -1,363 +1,335 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Replica | Minimal Editorial Design</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Portfolio | Luca Colosimo Style</title> <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
     <style>
         /* =============================================
-           DESIGN SYSTEM & VARIABILI
-           Cambia questi valori per personalizzare il sito
-           =============================================
-        */
+           CONFIGURAZIONE DESIGN SYSTEM (MODIFICA QUI)
+           ============================================= */
         :root {
-            --bg-color: #ffffff;        /* Colore Sfondo */
-            --text-color: #1a1a1a;     /* Colore Testo Principale */
-            --text-muted: #86868b;     /* Colore Testo Secondario */
-            --accent-color: #000000;   /* Colore Accento */
-            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            
-            --margin-side: 8vw;        /* Margine laterale fluido */
-            --section-gap: 200px;      /* Spazio tra le sezioni desktop */
-            --transition-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+            --bg-gradient: linear-gradient(135deg, #ffffff 0%, #e0f2f1 100%); /* Sfondo gradiente bianco/verdeacqua */
+            --text-main: #1d1d1f;      /* Nero tipico Apple */
+            --text-muted: #86868b;     /* Grigio per testi secondari */
+            --accent-color: #0071e3;   /* Blu per link/bottoni */
+            --glass-bg: rgba(255, 255, 255, 0.7); /* Effetto vetro per i box */
+            --border-radius: 24px;     /* Arrotondamento stile Apple */
+            --font-main: 'Inter', sans-serif; /* Font principale */
+            --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); /* Animazione fluida */
         }
 
-        /* RESET BASE */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* RESET GENERALE */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
         
-        html { scroll-behavior: smooth; }
-
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
             font-family: var(--font-main);
-            line-height: 1.4;
-            -webkit-font-smoothing: antialiased;
+            background: var(--bg-gradient);
+            background-attachment: fixed; /* Mantiene il gradiente fisso mentre scrolli */
+            color: var(--text-main);
+            line-height: 1.5;
             overflow-x: hidden;
         }
 
-        /* =============================================
-           TYPOGRAPHY & UTILS
-           =============================================
-        */
-        h1, h2, h3 { font-weight: 500; letter-spacing: -0.03em; }
-        
-        .container {
-            padding: 0 var(--margin-side);
-            width: 100%;
-        }
-
+        /* UTILITY PER ANIMAZIONE REVEAL */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
-            transition: opacity 1.2s var(--transition-smooth), 
-                        transform 1.2s var(--transition-smooth);
+            transition: var(--transition);
         }
-
         .reveal.active {
             opacity: 1;
             transform: translateY(0);
         }
 
         /* =============================================
-           NAVIGATION
-           =============================================
-        */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 30px var(--margin-side);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            background: rgba(255,255,255,0.7);
-            backdrop-filter: blur(10px);
+           1. HEADER (FISSA E CENTRATA)
+           ============================================= */
+        /* HEADER SECTION START */
+        header {
+            position: fixed; /* La rende fissa in alto */
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%); /* Centra l'header perfettamente */
+            z-index: 1000;
+            width: 90%;
+            max-width: 600px; /* Larghezza massima del box header */
         }
 
-        .nav-logo { font-weight: 600; font-size: 1.1rem; text-decoration: none; color: var(--text-color); }
-        .nav-links a {
+        .nav-box {
+            background: var(--glass-bg); /* Sfondo semi-trasparente */
+            backdrop-filter: blur(20px); /* Effetto sfocatura dietro l'header */
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px; /* Bordi molto tondi per l'header */
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center; /* Centra i bottoni all'interno */
+            gap: 15px; /* Spazio tra i pulsanti */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .nav-box a {
             text-decoration: none;
-            color: var(--text-color);
-            margin-left: 30px;
-            font-size: 0.9rem;
-            transition: opacity 0.3s ease;
+            color: var(--text-main);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: var(--transition);
         }
-        .nav-links a:hover { opacity: 0.5; }
+
+        .nav-box a:hover {
+            background: rgba(0,0,0,0.05); /* Effetto hover grigio chiaro */
+        }
+        /* HEADER SECTION END */
 
         /* =============================================
-           HERO SECTION
-           =============================================
-        */
-        /* HERO SECTION START */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding-top: 100px;
+           SEZIONI GENERALI
+           ============================================= */
+        section {
+            padding: 120px 5% 60px; /* Spaziatura tra le sezioni */
+            max-width: 1100px;
+            margin: 0 auto;
+            min-height: 80vh;
         }
-
-        /* CAMBIA QUI IL TITOLO HERO */
-        .hero-title {
-            font-size: clamp(2.5rem, 10vw, 7rem);
-            line-height: 0.95;
-            max-width: 1200px;
-        }
-
-        .hero-subtitle {
-            margin-top: 40px;
-            font-size: clamp(1rem, 2vw, 1.5rem);
-            color: var(--text-muted);
-            max-width: 600px;
-            font-weight: 300;
-        }
-        /* HERO SECTION END */
 
         /* =============================================
-           INTRO SECTION
-           =============================================
-        */
-        /* INTRO START */
-        .intro {
-            padding: var(--section-gap) 0;
+           2. CHI SONO
+           ============================================= */
+        /* CHI SONO START */
+        .about-title {
+            font-size: clamp(3rem, 8vw, 5rem); /* Testo che si ridimensiona con lo schermo */
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 50px;
+            letter-spacing: -2px;
+        }
+
+        .about-box {
+            background: var(--glass-bg);
+            border-radius: var(--border-radius); /* Bordo stile Apple */
+            padding: 40px;
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1fr; /* Due colonne: immagine e testo */
             gap: 40px;
+            align-items: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.03);
         }
 
-        /* CAMBIA QUI IL TESTO INTRODUTTIVO */
-        .intro-text {
-            grid-column: 2;
-            font-size: clamp(1.2rem, 3vw, 2.2rem);
-            font-weight: 400;
-            line-height: 1.3;
+        .about-image {
+            width: 100%;
+            aspect-ratio: 1/1; /* Mantiene l'immagine quadrata */
+            background: #eee; /* Placeholder se l'immagine manca */
+            border-radius: calc(var(--border-radius) - 10px);
+            object-fit: cover; /* Adatta l'immagine al box senza distorcerla */
         }
-        /* INTRO END */
+
+        .about-content h2 { margin-bottom: 20px; font-size: 28px; }
+        .about-content p { color: var(--text-muted); font-size: 18px; }
+        /* CHI SONO END */
 
         /* =============================================
-           WORK / PROJECTS SECTION
-           =============================================
-        */
-        /* PROJECTS START */
-        .work {
-            padding-bottom: var(--section-gap);
-        }
-
-        .work-header {
-            border-bottom: 1px solid #e0e0e0;
-            padding-bottom: 20px;
-            margin-bottom: 40px;
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-muted);
-        }
+           3. WORK / PROGETTI
+           ============================================= */
+        /* WORK SECTION START */
+        .work-title { font-size: 32px; margin-bottom: 40px; font-weight: 600; }
 
         .project-item {
-            display: block;
-            text-decoration: none;
-            color: var(--text-color);
-            padding: 40px 0;
-            border-bottom: 1px solid #f0f0f0;
             display: grid;
-            grid-template-columns: 1fr 2fr 1fr;
-            align-items: center;
-            transition: background 0.4s ease;
-        }
-
-        /* Hover Effect simile a Teo Macauda */
-        .project-item:hover {
-            padding-left: 20px;
-            background-color: #fafafa;
-        }
-
-        .project-year { font-size: 0.9rem; color: var(--text-muted); }
-        
-        /* CAMBIA QUI IL TITOLO PROGETTI */
-        .project-title {
-            font-size: clamp(1.5rem, 4vw, 3.5rem);
-            transition: transform 0.4s var(--transition-smooth);
-        }
-
-        .project-category {
-            text-align: right;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-        /* PROJECTS END */
-
-        /* =============================================
-           FOOTER
-           =============================================
-        */
-        /* FOOTER START */
-        footer {
-            padding: 100px var(--margin-side) 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            border-top: 1px solid #f0f0f0;
-        }
-
-        /* CAMBIA QUI I TUOI SOCIAL */
-        .footer-left h2 { font-size: 3rem; margin-bottom: 20px; }
-        .footer-email { font-size: 1.2rem; text-decoration: none; color: var(--text-color); border-bottom: 1px solid black; }
-        
-        .social-links a {
+            grid-template-columns: auto 1fr auto; /* Anno, Titolo, Categoria */
+            padding: 30px 10px;
+            border-bottom: 1px solid rgba(0,0,0,0.1); /* Linea sottile divisoria */
             text-decoration: none;
-            color: var(--text-muted);
-            margin-left: 20px;
-            font-size: 0.9rem;
+            color: inherit;
+            align-items: baseline;
+            gap: 20px;
+            transition: var(--transition);
         }
-        .social-links a:hover { color: black; }
-        /* FOOTER END */
+
+        .project-item:hover {
+            padding-left: 20px; /* Effetto movimento verso destra */
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .p-year { font-size: 14px; color: var(--text-muted); width: 50px; }
+        .p-name { font-size: 24px; font-weight: 600; }
+        .p-cat { font-size: 14px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        /* WORK SECTION END */
 
         /* =============================================
-           RESPONSIVE
-           =============================================
-        */
-        @media (max-width: 1024px) {
-            :root { --section-gap: 120px; }
-            .intro { grid-template-columns: 1fr; }
-            .intro-text { grid-column: 1; }
+           CHATBOT POPUP CONTATTI (In basso a destra)
+           ============================================= */
+        .contact-trigger {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--text-main);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 2000;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            font-weight: 600;
         }
 
+        .contact-popup {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 300px;
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            display: none; /* Nascosto di base */
+            z-index: 2000;
+            transform-origin: bottom right;
+            animation: popupIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes popupIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+
+        .contact-popup h4 { margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .contact-link {
+            display: block;
+            padding: 10px 0;
+            text-decoration: none;
+            color: var(--text-main);
+            border-bottom: 1px solid #f9f9f9;
+            transition: 0.3s;
+        }
+        .contact-link:hover { color: var(--accent-color); padding-left: 5px; }
+
+        /* =============================================
+           5. FOOTER
+           ============================================= */
+        footer {
+            text-align: center;
+            padding: 60px 0;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* =============================================
+           RESPONSIVE (MOBILE FRIENDLY)
+           ============================================= */
         @media (max-width: 768px) {
-            :root { --margin-side: 25px; --section-gap: 80px; }
-            .project-item { grid-template-columns: 1fr 1fr; gap: 10px; }
-            .project-year { grid-row: 2; }
-            .project-category { grid-row: 2; text-align: left; }
-            .project-title { grid-column: span 2; font-size: 2rem; }
-            footer { flex-direction: column; align-items: flex-start; gap: 40px; }
-            .social-links { margin-left: 0; }
-            .social-links a { margin-left: 0; margin-right: 20px; }
+            .about-box { grid-template-columns: 1fr; } /* Su mobile il box Chi Sono diventa verticale */
+            .nav-box { width: 100%; padding: 5px; gap: 5px; }
+            .nav-box a { font-size: 12px; padding: 8px 10px; }
+            .project-item { grid-template-columns: 1fr; gap: 5px; padding: 20px 0; }
+            .p-cat { text-align: left; }
+            .about-title { font-size: 3rem; }
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="#" class="nav-logo">TEO REPLICA.</a> <div class="nav-links">
-            <a href="#work">Work</a>
-            <a href="#about">About</a>
-            <a href="mailto:hello@example.com">Contact</a>
-        </div>
-    </nav>
-
-    <main class="container">
-        
-        <section class="hero">
-            <h1 class="hero-title reveal">Independent Designer <br>& Creative Developer.</h1>
-            <p class="hero-subtitle reveal">Specializzato nella creazione di interfacce digitali dove la tipografia incontra la funzionalità.</p>
-        </section>
-        <section id="about" class="intro">
-            <div class="intro-text reveal">
-                Aiuto brand e startup a comunicare la loro essenza attraverso un design pulito, razionale e orientato ai dettagli. Nessun fronzolo, solo sostanza.
-            </div>
-        </section>
-        <section id="work" class="work">
-            <div class="work-header reveal">
-                <span>Progetti Selezionati</span>
-                <span>(2023 — 2026)</span>
-            </div>
-
-            <div class="project-list">
+    <header>
+        <nav class="nav-box">
+            <a href="#chi-sono">Chi sono</a> <a href="#servizi">Servizi</a>
+            <a href="#lavori">Lavori</a>
+            <a href="https://beacons.ai/lucacolosimo" target="_blank" style="color: var(--accent-color); font-weight: bold;">Toolbox</a>
+        </nav>
+    </header>
+    <main>
+        <section id="chi-sono">
+            <h1 class="about-title reveal">Creativo Digitale.</h1> <div class="about-box reveal">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop" alt="La mia foto" class="about-image">
                 
+                <div class="about-content">
+                    <h2>Ciao, sono Luca</h2> <p>Appassionato di design ed innovazione, aiuto le persone a costruire la propria presenza online con un tocco di eleganza e funzionalità.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="servizi">
+            <h2 class="work-title reveal">Cosa faccio</h2>
+            <div class="about-box reveal" style="grid-template-columns: 1fr;">
+                <p>Offro consulenze creative, sviluppo web e strategie di personal branding.</p>
+            </div>
+        </section>
+
+        <section id="lavori">
+            <h2 class="work-title reveal">Lavori Selezionati</h2>
+            
+            <div class="project-list">
                 <a href="#" class="project-item reveal">
-                    <span class="project-year">2025</span>
-                    <h3 class="project-title">Studio Aura</h3>
-                    <span class="project-category">Branding / Web</span>
-                </a>
+                    <span class="project-year">2024</span> <span class="p-name">Redesign Brand Luxury</span> <span class="p-cat">Web Design</span> </a>
 
                 <a href="#" class="project-item reveal">
-                    <span class="project-year">2024</span>
-                    <h3 class="project-title">Kinetica System</h3>
-                    <span class="project-category">Product Design</span>
-                </a>
-
-                <a href="#" class="project-item reveal">
-                    <span class="project-year">2024</span>
-                    <h3 class="project-title">Oltre Architect</h3>
-                    <span class="project-category">Visual Identity</span>
+                    <span class="project-year">2023</span>
+                    <span class="p-name">App Mobile Fitness</span>
+                    <span class="p-cat">UI/UX Design</span>
                 </a>
 
                 <a href="#" class="project-item reveal">
                     <span class="project-year">2023</span>
-                    <h3 class="project-title">Minimal Mag</h3>
-                    <span class="project-category">Editorial Design</span>
+                    <span class="p-name">Campagna Social XYZ</span>
+                    <span class="p-cat">Marketing</span>
                 </a>
-
+                
                 </div>
         </section>
-        </main>
+    </main>
+
+    <div class="contact-trigger" id="contactTrigger">Contattami</div>
+
+    <div class="contact-popup" id="contactPopup">
+        <h4>I miei canali</h4>
+        <a href="mailto:info@esempio.it" class="contact-link">Email</a>
+        <a href="https://instagram.com" class="contact-link">Instagram</a>
+        <a href="https://linkedin.com" class="contact-link">LinkedIn</a>
+        <a href="https://youtube.com" class="contact-link">YouTube</a>
+    </div>
 
     <footer>
-        <div class="footer-left reveal">
-            <h2>Let's talk.</h2>
-            <a href="mailto:info@tuodominio.it" class="footer-email">info@tuodominio.it</a>
-        </div>
-        <div class="footer-right reveal">
-            <div class="social-links">
-                <a href="#">Instagram</a>
-                <a href="#">LinkedIn</a>
-                <a href="#">Savee</a>
-            </div>
-        </div>
+        <p>© 2026 Luca Colosimo — Made with Love</p>
     </footer>
+
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // Inizializza Intersection Observer per animazioni al passaggio
-            const revealCallback = (entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                        // Opzionale: smette di osservare dopo la prima animazione
-                        // observer.unobserve(entry.target); 
-                    }
+        /* FUNZIONE PER ANIMAZIONI ALLO SCROLL (INTERSECTION OBSERVER) */
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active'); // Aggiunge la classe per animare quando visibile
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Applica l'osservatore a tutti gli elementi con classe .reveal
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+        /* GESTIONE POPUP CONTATTI */
+        const trigger = document.getElementById('contactTrigger');
+        const popup = document.getElementById('contactPopup');
+
+        trigger.addEventListener('click', () => {
+            // Se il popup è chiuso lo apre, se è aperto lo chiude
+            if (popup.style.display === 'block') {
+                popup.style.display = 'none';
+            } else {
+                popup.style.display = 'block';
+            }
+        });
+
+        // Chiude il popup se si clicca fuori
+        window.addEventListener('click', (e) => {
+            if (!trigger.contains(e.target) && !popup.contains(e.target)) {
+                popup.style.display = 'none';
+            }
+        });
+
+        /* SCROLL FLUIDO PER I BOTTONI HEADER */
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault(); // Impedisce il salto immediato
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth' // Rende lo scroll fluido
                 });
-            };
-
-            const revealObserver = new IntersectionObserver(revealCallback, {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px' // Attiva poco prima che entri nel viewport
-            });
-
-            // Applica l'osservatore a tutti gli elementi .reveal
-            document.querySelectorAll('.reveal').forEach(el => {
-                revealObserver.observe(el);
-            });
-
-            // Gestione Navbar al Scroll
-            let lastScroll = 0;
-            const nav = document.querySelector('nav');
-
-            window.addEventListener('scroll', () => {
-                const currentScroll = window.pageYOffset;
-                
-                if (currentScroll <= 0) {
-                    nav.style.boxShadow = "none";
-                    return;
-                }
-                
-                // Effetto trasparenza/ombra navbar
-                if (currentScroll > 50) {
-                    nav.style.padding = "20px var(--margin-side)";
-                } else {
-                    nav.style.padding = "30px var(--margin-side)";
-                }
-                
-                lastScroll = currentScroll;
             });
         });
     </script>
