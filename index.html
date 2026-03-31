@@ -154,21 +154,116 @@
             </div>
         </section>
 
-        <div class="partners-section">
-            <p class="partners-title">Hanno scelto di lavorare con me</p>
-            <div class="marquee">
-                <img src="https://via.placeholder.com/150x60?text=LOGO+1" alt="Partner 1">
-                <img src="https://via.placeholder.com/150x60?text=LOGO+2" alt="Partner 2">
-                <img src="https://via.placeholder.com/150x60?text=LOGO+3" alt="Partner 3">
-                <img src="https://via.placeholder.com/150x60?text=LOGO+4" alt="Partner 4">
-                <img src="https://via.placeholder.com/150x60?text=LOGO+5" alt="Partner 5">
-                <img src="https://via.placeholder.com/150x60?text=LOGO+1" alt="Partner 1">
-                <img src="https://via.placeholder.com/150x60?text=LOGO+2" alt="Partner 2">
-                <img src="https://via.placeholder.com/150x60?text=LOGO+3" alt="Partner 3">
-                <img src="https://via.placeholder.com/150x60?text=LOGO+4" alt="Partner 4">
-                <img src="https://via.placeholder.com/150x60?text=LOGO+5" alt="Partner 5">
-            </div>
+<style>
+    /* CONTENITORE PRINCIPALE */
+    .partners-section { 
+        padding: 80px 0; 
+        overflow: hidden; /* Nasconde i loghi che escono lateralmente */
+        background: rgba(255,255,255,0.2); 
+        margin: 40px 0;
+        position: relative; /* Necessario per i gradienti ai lati */
+    }
+
+    .partners-title { 
+        text-align: center; 
+        margin-bottom: 40px; 
+        font-size: 14px; 
+        color: var(--text-muted); 
+        text-transform: uppercase; 
+        letter-spacing: 2px; 
+        font-weight: 600;
+    }
+
+    /* GRADIENTI LATERALI (Effetto sfumatura ai bordi) */
+    .partners-section::before, .partners-section::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        width: 150px; /* Larghezza della sfumatura */
+        height: 100%;
+        z-index: 2;
+        pointer-events: none; /* Permette di cliccare i loghi sotto la sfumatura */
+    }
+    /* Sfumatura sinistra */
+    .partners-section::before { 
+        left: 0; 
+        background: linear-gradient(to right, rgba(230,247,246,1), rgba(255,255,255,0)); 
+    }
+    /* Sfumatura destra */
+    .partners-section::after { 
+        right: 0; 
+        background: linear-gradient(to left, rgba(220,241,240,1), rgba(255,255,255,0)); 
+    }
+
+    /* IL CONTENITORE CHE SI MUOVE */
+    .marquee-container {
+        display: flex;
+        width: max-content; /* Si espande in base al numero di loghi */
+        animation: scroll-infinite 30s linear infinite; /* Regola i secondi per la velocità */
+    }
+
+    /* I SINGOLI BLOCCHI DI LOGHI (Devono essere identici) */
+    .marquee-content {
+        display: flex;
+        align-items: center;
+    }
+
+    .marquee-content img {
+        height: 50px; /* Altezza dei loghi/foto profilo */
+        margin: 0 40px; /* Spazio tra un logo e l'altro */
+        filter: grayscale(100%); /* Effetto bianco e nero elegante */
+        opacity: 0.5;
+        transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* EFFETTO AL PASSAGGIO DEL MOUSE */
+    .marquee-content img:hover {
+        filter: grayscale(0%); /* Torna a colori */
+        opacity: 1;
+        transform: scale(1.1); /* Si ingrandisce leggermente */
+    }
+
+    /* LOGICA DEL LOOP INFINITO */
+    @keyframes scroll-infinite {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); } /* Si sposta esattamente della metà (fine del primo blocco) */
+    }
+
+    /* FERMA IL LOOP QUANDO L'UTENTE CI PASSA SOPRA */
+    .marquee-container:hover {
+        animation-play-state: paused;
+    }
+
+    /* OTTIMIZZAZIONE MOBILE */
+    @media (max-width: 768px) {
+        .marquee-content img { height: 40px; margin: 0 25px; }
+        .partners-section::before, .partners-section::after { width: 60px; }
+    }
+</style>
+
+<div class="partners-section reveal">
+    <p class="partners-title">Collaborazioni & Partners</p>
+    
+    <div class="marquee-container">
+        <div class="marquee-content">
+            <img src="https://via.placeholder.com/150x60?text=LOGO+1" alt="Partner">
+            <img src="https://via.placeholder.com/150x60?text=LOGO+2" alt="Partner">
+            <img src="https://via.placeholder.com/150x60?text=LOGO+3" alt="Partner">
+            <img src="https://via.placeholder.com/150x60?text=LOGO+4" alt="Partner">
+            <img src="https://via.placeholder.com/150x60?text=LOGO+5" alt="Partner">
+            <img src="https://via.placeholder.com/150x60?text=LOGO+6" alt="Partner">
         </div>
+
+        <div class="marquee-content">
+            <img src="https://via.placeholder.com/150x60?text=LOGO+1" alt="Partner">
+            <img src="https://via.placeholder.com/150x60?text=LOGO+2" alt="Partner">
+            <img src="https://via.placeholder.com/150x60?text=LOGO+3" alt="Partner">
+            <img src="https://via.placeholder.com/150x60?text=LOGO+4" alt="Partner">
+            <img src="https://via.placeholder.com/150x60?text=LOGO+5" alt="Partner">
+            <img src="https://via.placeholder.com/150x60?text=LOGO+6" alt="Partner">
+        </div>
+    </div>
+</div>
 
         <section id="lavori">
             <h2 class="work-title reveal">I miei lavori</h2>
