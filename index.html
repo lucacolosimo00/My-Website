@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Replica | Minimal Editorial Design</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* =============================================
+           DESIGN SYSTEM & VARIABILI
+           Cambia questi valori per personalizzare il sito
+           =============================================
+        */
+        :root {
+            --bg-color: #ffffff;        /* Colore Sfondo */
+            --text-color: #1a1a1a;     /* Colore Testo Principale */
+            --text-muted: #86868b;     /* Colore Testo Secondario */
+            --accent-color: #000000;   /* Colore Accento */
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            
+            --margin-side: 8vw;        /* Margine laterale fluido */
+            --section-gap: 200px;      /* Spazio tra le sezioni desktop */
+            --transition-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* RESET BASE */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            line-height: 1.4;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* =============================================
+           TYPOGRAPHY & UTILS
+           =============================================
+        */
+        h1, h2, h3 { font-weight: 500; letter-spacing: -0.03em; }
+        
+        .container {
+            padding: 0 var(--margin-side);
+            width: 100%;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.2s var(--transition-smooth), 
+                        transform 1.2s var(--transition-smooth);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* =============================================
+           NAVIGATION
+           =============================================
+        */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px var(--margin-side);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-logo { font-weight: 600; font-size: 1.1rem; text-decoration: none; color: var(--text-color); }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            margin-left: 30px;
+            font-size: 0.9rem;
+            transition: opacity 0.3s ease;
+        }
+        .nav-links a:hover { opacity: 0.5; }
+
+        /* =============================================
+           HERO SECTION
+           =============================================
+        */
+        /* HERO SECTION START */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: 100px;
+        }
+
+        /* CAMBIA QUI IL TITOLO HERO */
+        .hero-title {
+            font-size: clamp(2.5rem, 10vw, 7rem);
+            line-height: 0.95;
+            max-width: 1200px;
+        }
+
+        .hero-subtitle {
+            margin-top: 40px;
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: var(--text-muted);
+            max-width: 600px;
+            font-weight: 300;
+        }
+        /* HERO SECTION END */
+
+        /* =============================================
+           INTRO SECTION
+           =============================================
+        */
+        /* INTRO START */
+        .intro {
+            padding: var(--section-gap) 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        /* CAMBIA QUI IL TESTO INTRODUTTIVO */
+        .intro-text {
+            grid-column: 2;
+            font-size: clamp(1.2rem, 3vw, 2.2rem);
+            font-weight: 400;
+            line-height: 1.3;
+        }
+        /* INTRO END */
+
+        /* =============================================
+           WORK / PROJECTS SECTION
+           =============================================
+        */
+        /* PROJECTS START */
+        .work {
+            padding-bottom: var(--section-gap);
+        }
+
+        .work-header {
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+        }
+
+        .project-item {
+            display: block;
+            text-decoration: none;
+            color: var(--text-color);
+            padding: 40px 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            align-items: center;
+            transition: background 0.4s ease;
+        }
+
+        /* Hover Effect simile a Teo Macauda */
+        .project-item:hover {
+            padding-left: 20px;
+            background-color: #fafafa;
+        }
+
+        .project-year { font-size: 0.9rem; color: var(--text-muted); }
+        
+        /* CAMBIA QUI IL TITOLO PROGETTI */
+        .project-title {
+            font-size: clamp(1.5rem, 4vw, 3.5rem);
+            transition: transform 0.4s var(--transition-smooth);
+        }
+
+        .project-category {
+            text-align: right;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        /* PROJECTS END */
+
+        /* =============================================
+           FOOTER
+           =============================================
+        */
+        /* FOOTER START */
+        footer {
+            padding: 100px var(--margin-side) 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        /* CAMBIA QUI I TUOI SOCIAL */
+        .footer-left h2 { font-size: 3rem; margin-bottom: 20px; }
+        .footer-email { font-size: 1.2rem; text-decoration: none; color: var(--text-color); border-bottom: 1px solid black; }
+        
+        .social-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            margin-left: 20px;
+            font-size: 0.9rem;
+        }
+        .social-links a:hover { color: black; }
+        /* FOOTER END */
+
+        /* =============================================
+           RESPONSIVE
+           =============================================
+        */
+        @media (max-width: 1024px) {
+            :root { --section-gap: 120px; }
+            .intro { grid-template-columns: 1fr; }
+            .intro-text { grid-column: 1; }
+        }
+
+        @media (max-width: 768px) {
+            :root { --margin-side: 25px; --section-gap: 80px; }
+            .project-item { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .project-year { grid-row: 2; }
+            .project-category { grid-row: 2; text-align: left; }
+            .project-title { grid-column: span 2; font-size: 2rem; }
+            footer { flex-direction: column; align-items: flex-start; gap: 40px; }
+            .social-links { margin-left: 0; }
+            .social-links a { margin-left: 0; margin-right: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="nav-logo">TEO REPLICA.</a> <div class="nav-links">
+            <a href="#work">Work</a>
+            <a href="#about">About</a>
+            <a href="mailto:hello@example.com">Contact</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <section class="hero">
+            <h1 class="hero-title reveal">Independent Designer <br>& Creative Developer.</h1>
+            <p class="hero-subtitle reveal">Specializzato nella creazione di interfacce digitali dove la tipografia incontra la funzionalità.</p>
+        </section>
+        <section id="about" class="intro">
+            <div class="intro-text reveal">
+                Aiuto brand e startup a comunicare la loro essenza attraverso un design pulito, razionale e orientato ai dettagli. Nessun fronzolo, solo sostanza.
+            </div>
+        </section>
+        <section id="work" class="work">
+            <div class="work-header reveal">
+                <span>Progetti Selezionati</span>
+                <span>(2023 — 2026)</span>
+            </div>
+
+            <div class="project-list">
+                
+                <a href="#" class="project-item reveal">
+                    <span class="project-year">2025</span>
+                    <h3 class="project-title">Studio Aura</h3>
+                    <span class="project-category">Branding / Web</span>
+                </a>
+
+                <a href="#" class="project-item reveal">
+                    <span class="project-year">2024</span>
+                    <h3 class="project-title">Kinetica System</h3>
+                    <span class="project-category">Product Design</span>
+                </a>
+
+                <a href="#" class="project-item reveal">
+                    <span class="project-year">2024</span>
+                    <h3 class="project-title">Oltre Architect</h3>
+                    <span class="project-category">Visual Identity</span>
+                </a>
+
+                <a href="#" class="project-item reveal">
+                    <span class="project-year">2023</span>
+                    <h3 class="project-title">Minimal Mag</h3>
+                    <span class="project-category">Editorial Design</span>
+                </a>
+
+                </div>
+        </section>
+        </main>
+
+    <footer>
+        <div class="footer-left reveal">
+            <h2>Let's talk.</h2>
+            <a href="mailto:info@tuodominio.it" class="footer-email">info@tuodominio.it</a>
+        </div>
+        <div class="footer-right reveal">
+            <div class="social-links">
+                <a href="#">Instagram</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">Savee</a>
+            </div>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // Inizializza Intersection Observer per animazioni al passaggio
+            const revealCallback = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // Opzionale: smette di osservare dopo la prima animazione
+                        // observer.unobserve(entry.target); 
+                    }
+                });
+            };
+
+            const revealObserver = new IntersectionObserver(revealCallback, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px' // Attiva poco prima che entri nel viewport
+            });
+
+            // Applica l'osservatore a tutti gli elementi .reveal
+            document.querySelectorAll('.reveal').forEach(el => {
+                revealObserver.observe(el);
+            });
+
+            // Gestione Navbar al Scroll
+            let lastScroll = 0;
+            const nav = document.querySelector('nav');
+
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.pageYOffset;
+                
+                if (currentScroll <= 0) {
+                    nav.style.boxShadow = "none";
+                    return;
+                }
+                
+                // Effetto trasparenza/ombra navbar
+                if (currentScroll > 50) {
+                    nav.style.padding = "20px var(--margin-side)";
+                } else {
+                    nav.style.padding = "30px var(--margin-side)";
+                }
+                
+                lastScroll = currentScroll;
+            });
+        });
+    </script>
+</body>
+</html>
