@@ -23,14 +23,14 @@
             color: var(--text-main);
             margin: 0;
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden; /* Evita scorrimenti laterali fastidiosi su mobile */
+            overflow-x: hidden;
         }
 
-        /* SFONDO BLOCCATO */
+        /* SFONDO */
         .background-fixed {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('sfondo.jpg'); /* Assicurati che il nome sia corretto */
+            background-image: url('sfondo.jpg');
             background-size: cover;
             background-position: center;
             z-index: -2;
@@ -39,20 +39,20 @@
         .background-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(15px);
             z-index: -1;
         }
 
-        /* HEADER OTTIMIZZATA */
+        /* HEADER */
         header {
             position: fixed;
             top: 15px;
             left: 50%;
             transform: translateX(-50%);
             width: 95%;
-            max-width: 800px;
-            background: rgba(15, 15, 15, 0.7);
+            max-width: 900px;
+            background: rgba(15, 15, 15, 0.8);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--border);
@@ -64,17 +64,18 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 20px;
+            padding: 12px 25px;
         }
 
         .logo { font-weight: 800; font-size: 18px; letter-spacing: -1px; }
 
-        .nav-links { display: flex; gap: 15px; align-items: center; }
+        /* MENU DESKTOP */
+        .nav-links { display: flex; gap: 25px; align-items: center; }
         
         nav a {
             text-decoration: none;
             color: var(--text-secondary);
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 500;
             transition: 0.3s;
         }
@@ -84,94 +85,79 @@
         .btn-editing {
             background: var(--text-main);
             color: var(--bg) !important;
-            padding: 6px 14px;
+            padding: 8px 18px;
             border-radius: 20px;
             font-weight: 600;
         }
 
-        /* SEZIONI RESPONSIVE */
-        section {
-            padding: 100px 20px 60px;
-            max-width: 1000px;
-            margin: 0 auto;
+        /* MENU MOBILE (HAMBURGER) */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
         }
 
-        h2 {
-            font-size: clamp(32px, 8vw, 48px); /* Testo che si rimpicciolisce su mobile */
-            font-weight: 700;
-            margin-bottom: 30px;
-            text-align: center;
+        .menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: white;
+            border-radius: 2px;
+            transition: 0.3s;
         }
 
-        /* GRID RESPONSIVE */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        /* TENDINA MOBILE */
+        .mobile-menu {
+            position: absolute;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background: rgba(15, 15, 15, 0.95);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            display: none; /* Nascosto di base */
+            flex-direction: column;
+            padding: 20px;
             gap: 20px;
+            text-align: center;
+            backdrop-filter: blur(20px);
         }
 
-        /* CHI SONO RESPONSIVE */
+        /* MEDIA QUERY MOBILE */
+        @media (max-width: 768px) {
+            .nav-links { display: none; } /* Nasconde link desktop */
+            .menu-toggle { display: flex; } /* Mostra icona menu */
+            
+            .mobile-menu.active {
+                display: flex; /* Mostra tendina quando attivo */
+            }
+        }
+
+        /* SEZIONI */
+        section { padding: 120px 20px 60px; max-width: 1000px; margin: 0 auto; min-height: 70vh; }
+        h2 { font-size: clamp(32px, 8vw, 56px); font-weight: 700; text-align: center; margin-bottom: 40px; }
+
         .about-grid {
             display: grid;
             grid-template-columns: 1.2fr 0.8fr;
-            gap: 30px;
+            gap: 40px;
             background: var(--card-bg);
-            padding: 30px;
-            border-radius: 32px;
+            padding: 40px;
+            border-radius: 35px;
             border: 1px solid var(--border);
+            align-items: center;
         }
 
-        /* MEDIA QUERY PER TELEFONO */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .card { background: var(--card-bg); padding: 35px; border-radius: 28px; border: 1px solid var(--border); }
+
         @media (max-width: 768px) {
-            header { top: 10px; padding: 5px 0; }
-            
-            /* Nascondiamo i link testuali meno importanti su mobile per non affollare la barra */
-            .nav-links a:not(.btn-editing) {
-                display: none; 
-            }
-
-            .about-grid {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .about-img {
-                order: -1; /* Mette la foto sopra il testo su mobile */
-                width: 150px;
-                height: 150px;
-                margin: 0 auto;
-            }
-
-            section { padding-top: 80px; }
+            .about-grid { grid-template-columns: 1fr; text-align: center; padding: 30px; }
+            .about-img { order: -1; width: 180px; height: 180px; margin: 0 auto; }
         }
 
-        .card {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 24px;
-            border: 1px solid var(--border);
-        }
-
-        .portfolio-card {
-            background: var(--card-bg);
-            border-radius: 24px;
-            border: 1px solid var(--border);
-            text-decoration: none;
-            color: inherit;
-            overflow: hidden;
-            display: block;
-        }
-
-        .portfolio-img {
-            width: 100%;
-            height: 180px;
-            background: #1a1a1a;
-            object-fit: cover;
-        }
-
-        .portfolio-info { padding: 15px; text-align: center; }
-
-        footer { padding: 40px; text-align: center; color: #444; font-size: 11px; }
+        footer { padding: 60px; text-align: center; color: #444; font-size: 12px; }
     </style>
 </head>
 <body>
@@ -182,10 +168,26 @@
     <header>
         <nav>
             <div class="logo">LC</div>
+            
             <div class="nav-links">
                 <a href="#chi-sono">About</a>
                 <a href="#servizi">Servizi</a>
                 <a href="#portfolio">Portfolio</a>
+                <a href="#contatti">Contatti</a>
+                <a href="https://beacons.ai/iltuonome" target="_blank" class="btn-editing">Editing</a>
+            </div>
+
+            <div class="menu-toggle" id="mobile-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div class="mobile-menu" id="mobile-menu">
+                <a href="#chi-sono" onclick="toggleMenu()">About</a>
+                <a href="#servizi" onclick="toggleMenu()">Servizi</a>
+                <a href="#portfolio" onclick="toggleMenu()">Portfolio</a>
+                <a href="#contatti" onclick="toggleMenu()">Contatti</a>
                 <a href="https://beacons.ai/iltuonome" target="_blank" class="btn-editing">Editing</a>
             </div>
         </nav>
@@ -194,60 +196,51 @@
     <section id="chi-sono">
         <h2>About.</h2>
         <div class="about-grid">
-            <div class="about-text">
-                <p>Mi chiamo <strong>Luca Colosimo</strong>. Creative Editor specializzato in contenuti ad alto impatto per YouTube e Social Media.</p>
-                <p style="color: var(--text-secondary); font-size: 16px;">Aiuto i brand a scalare l'attenzione del pubblico attraverso un montaggio moderno e strategico.</p>
+            <div>
+                <p style="font-size: 22px; font-weight: 500;">Luca Colosimo</p>
+                <p style="color: var(--text-secondary); font-size: 18px; line-height: 1.6;">Creative Editor specializzato in contenuti ad alto impatto. Trasformo la visione dei creator in realtà video ottimizzate per la crescita.</p>
             </div>
-            <div style="display: flex; justify-content: center;">
-                <img src="https://via.placeholder.com/200" alt="Luca" style="border-radius: 50%; border: 2px solid var(--border);" class="about-img">
-            </div>
+            <img src="https://via.placeholder.com/300" alt="Luca" class="about-img" style="border-radius: 30px; width: 100%; max-width: 250px;">
         </div>
     </section>
 
     <section id="servizi">
         <h2>Servizi.</h2>
         <div class="grid">
-            <div class="card">
-                <h3>🎬 Video Editing</h3>
-                <p>Montaggio dinamico ottimizzato per la retention.</p>
-            </div>
-            <div class="card">
-                <h3>🖼️ Miniature</h3>
-                <p>Thumbnail ad alto CTR per dominare i feed.</p>
-            </div>
+            <div class="card"><h3>🎬 Video Editing</h3><p style="color: var(--text-secondary)">Montaggio professionale per ogni piattaforma.</p></div>
+            <div class="card"><h3>🖼️ Miniature</h3><p style="color: var(--text-secondary)">Thumbnail che catturano il click.</p></div>
         </div>
     </section>
 
     <section id="portfolio">
         <h2>Portfolio.</h2>
         <div class="grid">
-            <a href="#" class="portfolio-card">
-                <div class="portfolio-img" style="display:flex; align-items:center; justify-content:center;">THUMB 1</div>
-                <div class="portfolio-info"><h3>Creator 1</h3><p>Guarda i lavori ↗</p></div>
-            </a>
-            <a href="#" class="portfolio-card">
-                <div class="portfolio-img" style="display:flex; align-items:center; justify-content:center;">THUMB 2</div>
-                <div class="portfolio-info"><h3>Creator 2</h3><p>Guarda i lavori ↗</p></div>
-            </a>
+            <div class="card" style="text-align: center;"><h3>Creator 1</h3><a href="#" style="color: var(--accent-blue); text-decoration: none;">Vedi Playlist ↗</a></div>
+            <div class="card" style="text-align: center;"><h3>Creator 2</h3><a href="#" style="color: var(--accent-blue); text-decoration: none;">Vedi Playlist ↗</a></div>
         </div>
     </section>
 
-    <section id="contatti" style="text-align: center;">
-        <h2>Contatti.</h2>
-        <div style="background: var(--card-bg); padding: 40px; border-radius: 30px; border: 1px solid var(--border);">
-            <a href="mailto:lucacolosimo37@gmail.com" style="color: var(--accent-blue); font-size: clamp(18px, 5vw, 24px); text-decoration: none; font-weight: 600;">lucacolosimo37@gmail.com</a>
-            <div style="margin-top: 20px; display: flex; justify-content: center; gap: 20px;">
-                <a href="#" style="color: var(--text-secondary); text-decoration: none;">Instagram</a>
-                <a href="#" style="color: var(--text-secondary); text-decoration: none;">TikTok</a>
-            </div>
+    <section id="contatti">
+        <div style="text-align: center; background: var(--card-bg); padding: 60px 20px; border-radius: 40px; border: 1px solid var(--border);">
+            <h2>Let's Talk.</h2>
+            <a href="mailto:lucacolosimo37@gmail.com" style="color: var(--text-main); font-size: clamp(20px, 5vw, 32px); text-decoration: none; font-weight: 700;">lucacolosimo37@gmail.com</a>
         </div>
     </section>
 
     <footer>LUCA COLOSIMO &copy; 2026</footer>
 
-</body>
-</html>
-    </footer>
+    <script>
+        const btn = document.getElementById('mobile-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('active');
+        });
+
+        function toggleMenu() {
+            menu.classList.remove('active');
+        }
+    </script>
 
 </body>
 </html>
