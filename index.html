@@ -3,244 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luca Colosimo | Creative Editor</title>
-    <style>
-        :root {
-            --bg: #000000;
-            --card-bg: #0a0a0a;
-            --border: rgba(255, 255, 255, 0.1);
-            --text-main: #ffffff;
-            --text-secondary: #a1a1a6;
-            --accent: #ffffff;
-            --accent-blue: #0071e3;
-        }
-
-        * { box-sizing: border-box; scroll-behavior: smooth; }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
-            background-color: var(--bg);
-            color: var(--text-main);
-            margin: 0;
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-        }
-
-        /* SFONDO */
-        .background-fixed {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('sfondo.jpg');
-            background-size: cover;
-            background-position: center;
-            z-index: -2;
-        }
-
-        .background-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(15px);
-            z-index: -1;
-        }
-
-        /* HEADER */
-        header {
-            position: fixed;
-            top: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 95%;
-            max-width: 900px;
-            background: rgba(15, 15, 15, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border);
-            border-radius: 30px;
-            z-index: 1000;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 25px;
-        }
-
-        .logo { font-weight: 800; font-size: 18px; letter-spacing: -1px; }
-
-        /* MENU DESKTOP */
-        .nav-links { display: flex; gap: 25px; align-items: center; }
-        
-        nav a {
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-size: 14px;
-            font-weight: 500;
-            transition: 0.3s;
-        }
-
-        nav a:hover { color: var(--text-main); }
-
-        .btn-editing {
-            background: var(--text-main);
-            color: var(--bg) !important;
-            padding: 8px 18px;
-            border-radius: 20px;
-            font-weight: 600;
-        }
-
-        /* MENU MOBILE (HAMBURGER) */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            z-index: 1001;
-        }
-
-        .menu-toggle span {
-            width: 25px;
-            height: 2px;
-            background: white;
-            border-radius: 2px;
-            transition: 0.3s;
-        }
-
-        /* TENDINA MOBILE */
-        .mobile-menu {
-            position: absolute;
-            top: 70px;
-            left: 0;
-            width: 100%;
-            background: rgba(15, 15, 15, 0.95);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            display: none; /* Nascosto di base */
-            flex-direction: column;
-            padding: 20px;
-            gap: 20px;
-            text-align: center;
-            backdrop-filter: blur(20px);
-        }
-
-        /* MEDIA QUERY MOBILE */
-        @media (max-width: 768px) {
-            .nav-links { display: none; } /* Nasconde link desktop */
-            .menu-toggle { display: flex; } /* Mostra icona menu */
-            
-            .mobile-menu.active {
-                display: flex; /* Mostra tendina quando attivo */
-            }
-        }
-
-        /* SEZIONI */
-        section { padding: 120px 20px 60px; max-width: 1000px; margin: 0 auto; min-height: 70vh; }
-        h2 { font-size: clamp(32px, 8vw, 56px); font-weight: 700; text-align: center; margin-bottom: 40px; }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 40px;
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 35px;
-            border: 1px solid var(--border);
-            align-items: center;
-        }
-
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .card { background: var(--card-bg); padding: 35px; border-radius: 28px; border: 1px solid var(--border); }
-
-        @media (max-width: 768px) {
-            .about-grid { grid-template-columns: 1fr; text-align: center; padding: 30px; }
-            .about-img { order: -1; width: 180px; height: 180px; margin: 0 auto; }
-        }
-
-        footer { padding: 60px; text-align: center; color: #444; font-size: 12px; }
-    </style>
+    <title>Apex Replica | Minimal Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div class="background-fixed"></div>
-    <div class="background-overlay"></div>
-
-    <header>
-        <nav>
-            <div class="logo">LC</div>
-            
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">APEX.</div>
             <div class="nav-links">
-                <a href="#chi-sono">About</a>
-                <a href="#servizi">Servizi</a>
-                <a href="#portfolio">Portfolio</a>
-                <a href="#contatti">Contatti</a>
-                <a href="https://beacons.ai/iltuonome" target="_blank" class="btn-editing">Editing</a>
+                <a href="#works">Works</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
             </div>
-
-            <div class="menu-toggle" id="mobile-btn">
-                <span></span>
-                <span></span>
-                <span></span>
+        </div>
+    </nav>
+    <main>
+        <section class="hero reveal">
+            <div class="container">
+                <p class="hero-label">Senior Frontend Developer</p>
+                <h1 class="hero-title">Crafting digital <br>experiences with <span>precision</span>.</h1>
+                <div class="hero-footer">
+                    <p class="hero-sub">Specializzato in UI/UX minimalista e sviluppo performante.</p>
+                    <div class="scroll-indicator">Scroll down</div>
+                </div>
             </div>
-
-            <div class="mobile-menu" id="mobile-menu">
-                <a href="#chi-sono" onclick="toggleMenu()">About</a>
-                <a href="#servizi" onclick="toggleMenu()">Servizi</a>
-                <a href="#portfolio" onclick="toggleMenu()">Portfolio</a>
-                <a href="#contatti" onclick="toggleMenu()">Contatti</a>
-                <a href="https://beacons.ai/iltuonome" target="_blank" class="btn-editing">Editing</a>
+        </section>
+        <section id="about" class="about reveal">
+            <div class="container">
+                <div class="grid-layout">
+                    <div class="grid-label">Intro</div>
+                    <div class="grid-content">
+                        <h2 class="large-text">
+                            Credo nella semplicità come massima forma di sofisticazione. Ogni pixel ha uno scopo, ogni animazione un significato.
+                        </h2>
+                    </div>
+                </div>
             </div>
-        </nav>
-    </header>
+        </section>
+        <section id="works" class="works reveal">
+            <div class="container">
+                <div class="section-header">
+                    <span>Selected Works</span>
+                    <span>(2023 — 2026)</span>
+                </div>
 
-    <section id="chi-sono">
-        <h2>About.</h2>
-        <div class="about-grid">
-            <div>
-                <p style="font-size: 22px; font-weight: 500;">Luca Colosimo</p>
-                <p style="color: var(--text-secondary); font-size: 18px; line-height: 1.6;">Creative Editor specializzato in contenuti ad alto impatto. Trasformo la visione dei creator in realtà video ottimizzate per la crescita.</p>
+                <div class="project-list">
+                    <div class="project-item">
+                        <div class="project-info">
+                            <span class="p-year">2024</span>
+                            <h3 class="p-title">Lumina Dashboard</h3>
+                            <span class="p-category">Product Design</span>
+                        </div>
+                        <div class="project-image-wrapper">
+                            <div class="project-placeholder"></div> 
+                        </div>
+                    </div>
+
+                    <div class="project-item">
+                        <div class="project-info">
+                            <span class="p-year">2023</span>
+                            <h3 class="p-title">Kinetica Brand</h3>
+                            <span class="p-category">Visual Identity</span>
+                        </div>
+                        <div class="project-image-wrapper">
+                            <div class="project-placeholder"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <img src="https://via.placeholder.com/300" alt="Luca" class="about-img" style="border-radius: 30px; width: 100%; max-width: 250px;">
+        </section>
+        <section class="case-study reveal">
+            <div class="container split-layout">
+                <div class="split-text">
+                    <span class="label">Featured Case Study</span>
+                    <h2>Studio Architettura "Oltre"</h2>
+                    <p>Un approccio modulare per un'agenzia che ridefinisce lo spazio urbano. Focus sulla gerarchia tipografica e l'uso dello spazio negativo.</p>
+                    <a href="#" class="btn-link">Vedi il progetto →</a>
+                </div>
+                <div class="split-visual">
+                    <div class="project-placeholder tall"></div>
+                </div>
+            </div>
+        </section>
+        </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <h2 class="footer-cta">Lavoriamo insieme?</h2>
+                <a href="mailto:hello@example.com" class="footer-email">hello@apex.studio</a>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Apex Template. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#">LinkedIn</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">Dribbble</a>
+                </div>
+            </div>
         </div>
-    </section>
-
-    <section id="servizi">
-        <h2>Servizi.</h2>
-        <div class="grid">
-            <div class="card"><h3>🎬 Video Editing</h3><p style="color: var(--text-secondary)">Montaggio professionale per ogni piattaforma.</p></div>
-            <div class="card"><h3>🖼️ Miniature</h3><p style="color: var(--text-secondary)">Thumbnail che catturano il click.</p></div>
-        </div>
-    </section>
-
-    <section id="portfolio">
-        <h2>Portfolio.</h2>
-        <div class="grid">
-            <div class="card" style="text-align: center;"><h3>Creator 1</h3><a href="#" style="color: var(--accent-blue); text-decoration: none;">Vedi Playlist ↗</a></div>
-            <div class="card" style="text-align: center;"><h3>Creator 2</h3><a href="#" style="color: var(--accent-blue); text-decoration: none;">Vedi Playlist ↗</a></div>
-        </div>
-    </section>
-
-    <section id="contatti">
-        <div style="text-align: center; background: var(--card-bg); padding: 60px 20px; border-radius: 40px; border: 1px solid var(--border);">
-            <h2>Let's Talk.</h2>
-            <a href="mailto:lucacolosimo37@gmail.com" style="color: var(--text-main); font-size: clamp(20px, 5vw, 32px); text-decoration: none; font-weight: 700;">lucacolosimo37@gmail.com</a>
-        </div>
-    </section>
-
-    <footer>LUCA COLOSIMO &copy; 2026</footer>
-
-    <script>
-        const btn = document.getElementById('mobile-btn');
-        const menu = document.getElementById('mobile-menu');
-
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('active');
-        });
-
-        function toggleMenu() {
-            menu.classList.remove('active');
-        }
-    </script>
-
+    </footer>
+    <script src="script.js"></script>
 </body>
 </html>
