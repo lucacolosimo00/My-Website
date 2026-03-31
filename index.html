@@ -5,85 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luca Colosimo | Creative Editor</title>
     <style>
-        /* SFONDO BLOCCATO E SFOCATO */
-.background-fixed {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* QUI INSERISCI IL LINK DELLA TUA IMMAGINE */
-    background-image: url('sfondo.jpg'); 
-    background-size: cover;
-    background-position: center;
-    z-index: -2; /* Rimane dietro a tutto */
-}
-
-/* STRATO CHE SFOCA AL PASSAGGIO (OVERLAY) */
-.background-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4); /* Scurisce un po' l'immagine */
-    backdrop-filter: blur(0px); /* Parte nitido */
-    z-index: -1;
-    transition: backdrop-filter 0.5s ease;
-}
-@media (prefers-reduced-motion: no-preference) {
-    html {
-        scroll-timeline: --page-scroll block;
-    }
-    
-    .background-overlay {
-        animation: blur-animation linear both;
-        animation-timeline: --page-scroll;
-        animation-range: 0% 20%; /* Si sfoca completamente dopo il 20% dello scroll */
-    }
-
-    @keyframes blur-animation {
-        from { backdrop-filter: blur(0px); background: rgba(0,0,0,0.2); }
-        to { backdrop-filter: blur(15px); background: rgba(0,0,0,0.7); }
-    }
-}
-        /* DESIGN SYSTEM ISPIRATO AD APEX / FRAMER */
         :root {
             --bg: #000000;
             --card-bg: #0a0a0a;
             --border: rgba(255, 255, 255, 0.1);
             --text-main: #ffffff;
             --text-secondary: #a1a1a6;
-            --accent: #ffffff; /* Bianco puro per un look minimal */
+            --accent: #ffffff;
             --accent-blue: #0071e3;
         }
 
         * { box-sizing: border-box; scroll-behavior: smooth; }
 
         body {
-    <div class="background-fixed"></div>
-    <div class="background-overlay"></div>
-
-    <header>
             font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
             background-color: var(--bg);
             color: var(--text-main);
             margin: 0;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden; /* Evita scorrimenti laterali fastidiosi su mobile */
         }
 
-        /* HEADER BLOCCATA */
+        /* SFONDO BLOCCATO */
+        .background-fixed {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('sfondo.jpg'); /* Assicurati che il nome sia corretto */
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+        }
+
+        .background-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            z-index: -1;
+        }
+
+        /* HEADER OTTIMIZZATA */
         header {
             position: fixed;
-            top: 20px;
+            top: 15px;
             left: 50%;
             transform: translateX(-50%);
-            width: 90%;
+            width: 95%;
             max-width: 800px;
-            background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(15px);
+            background: rgba(15, 15, 15, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--border);
-            border-radius: 40px;
+            border-radius: 30px;
             z-index: 1000;
         }
 
@@ -91,10 +64,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 25px;
+            padding: 10px 20px;
         }
 
-        .nav-links { display: flex; gap: 20px; }
+        .logo { font-weight: 800; font-size: 18px; letter-spacing: -1px; }
+
+        .nav-links { display: flex; gap: 15px; align-items: center; }
         
         nav a {
             text-decoration: none;
@@ -109,124 +84,110 @@
         .btn-editing {
             background: var(--text-main);
             color: var(--bg) !important;
-            padding: 8px 16px;
+            padding: 6px 14px;
             border-radius: 20px;
             font-weight: 600;
         }
 
-        /* SEZIONI */
+        /* SEZIONI RESPONSIVE */
         section {
-            padding: 140px 20px 80px;
+            padding: 100px 20px 60px;
             max-width: 1000px;
             margin: 0 auto;
         }
 
         h2 {
-            font-size: 42px;
+            font-size: clamp(32px, 8vw, 48px); /* Testo che si rimpicciolisce su mobile */
             font-weight: 700;
-            margin-bottom: 40px;
-            letter-spacing: -1px;
+            margin-bottom: 30px;
             text-align: center;
         }
 
-        /* CHI SONO */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 40px;
-            align-items: center;
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 32px;
-            border: 1px solid var(--border);
-        }
-
-        .about-text { font-size: 18px; color: var(--text-secondary); line-height: 1.6; }
-        .placeholder-img {
-            width: 100%;
-            border-radius: 20px;
-            aspect-ratio: 1;
-            object-fit: cover;
-            border: 1px solid var(--border);
-        }
-
-        /* SERVIZI */
+        /* GRID RESPONSIVE */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
         }
 
+        /* CHI SONO RESPONSIVE */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 30px;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 32px;
+            border: 1px solid var(--border);
+        }
+
+        /* MEDIA QUERY PER TELEFONO */
+        @media (max-width: 768px) {
+            header { top: 10px; padding: 5px 0; }
+            
+            /* Nascondiamo i link testuali meno importanti su mobile per non affollare la barra */
+            .nav-links a:not(.btn-editing) {
+                display: none; 
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .about-img {
+                order: -1; /* Mette la foto sopra il testo su mobile */
+                width: 150px;
+                height: 150px;
+                margin: 0 auto;
+            }
+
+            section { padding-top: 80px; }
+        }
+
         .card {
             background: var(--card-bg);
-            padding: 35px;
-            border-radius: 28px;
+            padding: 30px;
+            border-radius: 24px;
             border: 1px solid var(--border);
-            transition: 0.3s;
         }
 
-        .card:hover { border-color: rgba(255,255,255,0.3); transform: translateY(-5px); }
-        .card h3 { margin: 15px 0 10px; font-size: 22px; }
-        .card p { color: var(--text-secondary); font-size: 15px; }
-
-        /* PORTFOLIO */
         .portfolio-card {
             background: var(--card-bg);
-            border-radius: 28px;
+            border-radius: 24px;
             border: 1px solid var(--border);
-            overflow: hidden;
             text-decoration: none;
             color: inherit;
-            transition: 0.3s;
-        }
-
-        .portfolio-card:hover { transform: scale(1.02); }
-        .thumb-container { position: relative; width: 100%; height: 200px; overflow: hidden; }
-        .portfolio-info { padding: 20px; text-align: center; }
-
-        /* CONTATTI */
-        .contact-card {
-            text-align: center;
-            background: linear-gradient(180deg, #0a0a0a 0%, #000 100%);
-            padding: 80px 40px;
-            border-radius: 40px;
-            border: 1px solid var(--border);
-        }
-
-        .email-btn {
-            font-size: 28px;
-            color: var(--text-main);
-            text-decoration: none;
-            font-weight: 700;
+            overflow: hidden;
             display: block;
-            margin: 20px 0;
         }
 
-        .social-row { display: flex; justify-content: center; gap: 30px; margin-top: 40px; }
-        .social-row a { color: var(--text-secondary); text-decoration: none; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; }
-        .social-row a:hover { color: var(--accent-blue); }
-
-        footer { padding: 60px; text-align: center; color: #333; font-size: 12px; letter-spacing: 1px; }
-
-        @media (max-width: 768px) {
-            .about-grid { grid-template-columns: 1fr; text-align: center; }
-            h2 { font-size: 32px; }
-            nav .nav-links { display: none; } /* Su mobile nascondiamo i link centrali per semplicità */
+        .portfolio-img {
+            width: 100%;
+            height: 180px;
+            background: #1a1a1a;
+            object-fit: cover;
         }
+
+        .portfolio-info { padding: 15px; text-align: center; }
+
+        footer { padding: 40px; text-align: center; color: #444; font-size: 11px; }
     </style>
 </head>
 <body>
 
+    <div class="background-fixed"></div>
+    <div class="background-overlay"></div>
+
     <header>
         <nav>
-            <div style="font-weight: 800; font-size: 18px; letter-spacing: -1px;">LC</div>
+            <div class="logo">LC</div>
             <div class="nav-links">
-                <a href="#chi-sono">Chi sono</a>
+                <a href="#chi-sono">About</a>
                 <a href="#servizi">Servizi</a>
                 <a href="#portfolio">Portfolio</a>
-                <a href="#contatti">Contatti</a>
+                <a href="https://beacons.ai/iltuonome" target="_blank" class="btn-editing">Editing</a>
             </div>
-            <a href="https://beacons.ai/iltuonome" target="_blank" class="btn-editing">Editing</a>
         </nav>
     </header>
 
@@ -234,31 +195,25 @@
         <h2>About.</h2>
         <div class="about-grid">
             <div class="about-text">
-                Mi chiamo <strong>Luca Colosimo</strong>. Aiuto i creator a trasformare le loro idee in video virali. 
-                Utilizzo un approccio strategico al montaggio, focalizzato sulla retention e sull'impatto visivo. 
-                Non è solo editing, è narrazione digitale.
+                <p>Mi chiamo <strong>Luca Colosimo</strong>. Creative Editor specializzato in contenuti ad alto impatto per YouTube e Social Media.</p>
+                <p style="color: var(--text-secondary); font-size: 16px;">Aiuto i brand a scalare l'attenzione del pubblico attraverso un montaggio moderno e strategico.</p>
             </div>
-            <img src="https://via.placeholder.com/400x400/1a1a1a/ffffff?text=FOTO+LUCA" alt="Luca Colosimo" class="placeholder-img">
+            <div style="display: flex; justify-content: center;">
+                <img src="https://via.placeholder.com/200" alt="Luca" style="border-radius: 50%; border: 2px solid var(--border);" class="about-img">
+            </div>
         </div>
     </section>
 
     <section id="servizi">
-        <h2>Services.</h2>
+        <h2>Servizi.</h2>
         <div class="grid">
             <div class="card">
-                <img src="https://via.placeholder.com/50/1a1a1a/ffffff?text=🎬" alt="icon" style="border-radius: 10px;">
-                <h3>Video Editing</h3>
-                <p>Montaggio ad alto ritmo per YouTube, Reels e TikTok.</p>
+                <h3>🎬 Video Editing</h3>
+                <p>Montaggio dinamico ottimizzato per la retention.</p>
             </div>
             <div class="card">
-                <img src="https://via.placeholder.com/50/1a1a1a/ffffff?text=🖼️" alt="icon" style="border-radius: 10px;">
-                <h3>Miniature YT</h3>
-                <p>Design di thumbnail ottimizzate per il Click-Through Rate.</p>
-            </div>
-            <div class="card">
-                <img src="https://via.placeholder.com/50/1a1a1a/ffffff?text=📱" alt="icon" style="border-radius: 10px;">
-                <h3>Social Manager</h3>
-                <p>Gestione e crescita organica della tua presenza online.</p>
+                <h3>🖼️ Miniature</h3>
+                <p>Thumbnail ad alto CTR per dominare i feed.</p>
             </div>
         </div>
     </section>
@@ -266,43 +221,32 @@
     <section id="portfolio">
         <h2>Portfolio.</h2>
         <div class="grid">
-            <a href="URL_PLAYLIST_1" target="_blank" class="portfolio-card">
-                <div class="thumb-container">
-                    <img src="https://via.placeholder.com/600x400/1a1a1a/ffffff?text=CREATOR+1" class="placeholder-img" style="border:none;">
-                </div>
-                <div class="portfolio-info">
-                    <h3>Nome Creator 1</h3>
-                    <p>Playlist Progetti ↗</p>
-                </div>
+            <a href="#" class="portfolio-card">
+                <div class="portfolio-img" style="display:flex; align-items:center; justify-content:center;">THUMB 1</div>
+                <div class="portfolio-info"><h3>Creator 1</h3><p>Guarda i lavori ↗</p></div>
             </a>
-            <a href="URL_PLAYLIST_2" target="_blank" class="portfolio-card">
-                <div class="thumb-container">
-                    <img src="https://via.placeholder.com/600x400/1a1a1a/ffffff?text=CREATOR+2" class="placeholder-img" style="border:none;">
-                </div>
-                <div class="portfolio-info">
-                    <h3>Nome Creator 2</h3>
-                    <p>Playlist Progetti ↗</p>
-                </div>
+            <a href="#" class="portfolio-card">
+                <div class="portfolio-img" style="display:flex; align-items:center; justify-content:center;">THUMB 2</div>
+                <div class="portfolio-info"><h3>Creator 2</h3><p>Guarda i lavori ↗</p></div>
             </a>
         </div>
     </section>
 
-    <section id="contatti">
-        <div class="contact-card">
-            <h2>Let's build together.</h2>
-            <p style="color: var(--text-secondary);">Per collaborazioni o consulenze, scrivimi a:</p>
-            <a href="mailto:lucacolosimo37@gmail.com" class="email-btn">lucacolosimo37@gmail.com</a>
-            
-            <div class="social-row">
-                <a href="LINK_INSTAGRAM" target="_blank">Instagram</a>
-                <a href="LINK_LINKEDIN" target="_blank">LinkedIn</a>
-                <a href="LINK_TIKTOK" target="_blank">TikTok</a>
+    <section id="contatti" style="text-align: center;">
+        <h2>Contatti.</h2>
+        <div style="background: var(--card-bg); padding: 40px; border-radius: 30px; border: 1px solid var(--border);">
+            <a href="mailto:lucacolosimo37@gmail.com" style="color: var(--accent-blue); font-size: clamp(18px, 5vw, 24px); text-decoration: none; font-weight: 600;">lucacolosimo37@gmail.com</a>
+            <div style="margin-top: 20px; display: flex; justify-content: center; gap: 20px;">
+                <a href="#" style="color: var(--text-secondary); text-decoration: none;">Instagram</a>
+                <a href="#" style="color: var(--text-secondary); text-decoration: none;">TikTok</a>
             </div>
         </div>
     </section>
 
-    <footer>
-        DESIGNED BY LUCA COLOSIMO &copy; 2026
+    <footer>LUCA COLOSIMO &copy; 2026</footer>
+
+</body>
+</html>
     </footer>
 
 </body>
